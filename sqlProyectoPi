@@ -1,0 +1,395 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.1
+-- Dumped by pg_dump version 14.1
+
+-- Started on 2022-03-23 01:55:12
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 214 (class 1259 OID 20275)
+-- Name: bodega; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.bodega (
+    idproducto_bod integer NOT NULL,
+    nombreproducto_bod character varying(40) NOT NULL,
+    cantidad integer NOT NULL,
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.bodega OWNER TO postgres;
+
+--
+-- TOC entry 212 (class 1259 OID 20263)
+-- Name: cliente; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cliente (
+    idcliente integer NOT NULL,
+    nombre character varying(100) NOT NULL,
+    direccion character varying(1255) NOT NULL,
+    edad integer NOT NULL,
+    cantidadpedido integer NOT NULL,
+    tipopago character varying(155) NOT NULL
+);
+
+
+ALTER TABLE public.cliente OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 20291)
+-- Name: comercializacion; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.comercializacion (
+    idcliente_com integer NOT NULL,
+    precio_com double precision NOT NULL,
+    vendedor integer NOT NULL,
+    numerofactura integer NOT NULL,
+    cantidad_com integer NOT NULL,
+    direccionventa character varying(80) NOT NULL,
+    comision_venta bigint NOT NULL,
+    id_producto_com bigint NOT NULL
+);
+
+
+ALTER TABLE public.comercializacion OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 20306)
+-- Name: empresaunivalle; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.empresaunivalle (
+    nombreempresa character varying(8) NOT NULL,
+    direccion character varying(80) NOT NULL,
+    nombreproducto character varying(40) NOT NULL,
+    numerofactura_emp integer NOT NULL
+);
+
+
+ALTER TABLE public.empresaunivalle OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 20283)
+-- Name: fabricacion; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.fabricacion (
+    idproducto_fab integer NOT NULL,
+    materia_prima character varying(25) NOT NULL,
+    producto character varying(30) NOT NULL,
+    cantidad bigint NOT NULL,
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.fabricacion OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 20270)
+-- Name: producto; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.producto (
+    idproductos integer NOT NULL,
+    nombreproducto character varying(40) NOT NULL,
+    precio double precision NOT NULL,
+    descripcion character varying(70),
+    porcentaje_comision bigint NOT NULL
+);
+
+
+ALTER TABLE public.producto OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 20256)
+-- Name: proveedor; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.proveedor (
+    idproveedor integer NOT NULL,
+    nombre character varying(100) NOT NULL,
+    direccion character varying(1255) NOT NULL,
+    nombre_insumo character varying(155) NOT NULL,
+    numero_venta integer NOT NULL
+);
+
+
+ALTER TABLE public.proveedor OWNER TO postgres;
+
+--
+-- TOC entry 209 (class 1259 OID 20242)
+-- Name: usuario; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.usuario (
+    id integer NOT NULL,
+    nombre character varying(100) NOT NULL,
+    direccion character varying(1255) NOT NULL
+);
+
+
+ALTER TABLE public.usuario OWNER TO postgres;
+
+--
+-- TOC entry 210 (class 1259 OID 20249)
+-- Name: vendedor; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.vendedor (
+    idvendedor integer NOT NULL,
+    nombre character varying(100) NOT NULL,
+    direccion character varying(1255) NOT NULL,
+    numero_venta integer NOT NULL,
+    tipo_producto integer NOT NULL
+);
+
+
+ALTER TABLE public.vendedor OWNER TO postgres;
+
+--
+-- TOC entry 3360 (class 0 OID 20275)
+-- Dependencies: 214
+-- Data for Name: bodega; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.bodega (idproducto_bod, nombreproducto_bod, cantidad, id) FROM stdin;
+2	arepas	10	2
+1	empanada	36	1
+\.
+
+
+--
+-- TOC entry 3358 (class 0 OID 20263)
+-- Dependencies: 212
+-- Data for Name: cliente; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.cliente (idcliente, nombre, direccion, edad, cantidadpedido, tipopago) FROM stdin;
+1	Kevin	carrera 23	20	20	Efectivo
+\.
+
+
+--
+-- TOC entry 3362 (class 0 OID 20291)
+-- Dependencies: 216
+-- Data for Name: comercializacion; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.comercializacion (idcliente_com, precio_com, vendedor, numerofactura, cantidad_com, direccionventa, comision_venta, id_producto_com) FROM stdin;
+1	20000	1	1	10	Carrera 20	5	1
+1	2000	1	2	1	Carrera 20	5	1
+1	2000	1	3	1	Carrera 20	5	1
+1	20000	1	4	1	Carrera 20	1000	1
+\.
+
+
+--
+-- TOC entry 3363 (class 0 OID 20306)
+-- Dependencies: 217
+-- Data for Name: empresaunivalle; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.empresaunivalle (nombreempresa, direccion, nombreproducto, numerofactura_emp) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3361 (class 0 OID 20283)
+-- Dependencies: 215
+-- Data for Name: fabricacion; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.fabricacion (idproducto_fab, materia_prima, producto, cantidad, id) FROM stdin;
+2	harina	arepas	13	2
+1	papa	empanada	32	1
+1	carne	empanada	59	3
+1	aji	empanada	93	4
+\.
+
+
+--
+-- TOC entry 3359 (class 0 OID 20270)
+-- Dependencies: 213
+-- Data for Name: producto; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.producto (idproductos, nombreproducto, precio, descripcion, porcentaje_comision) FROM stdin;
+1	empanada	2000	empanada de calite	5
+2	arepas	4000	arepas solitas	5
+\.
+
+
+--
+-- TOC entry 3357 (class 0 OID 20256)
+-- Dependencies: 211
+-- Data for Name: proveedor; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.proveedor (idproveedor, nombre, direccion, nombre_insumo, numero_venta) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3355 (class 0 OID 20242)
+-- Dependencies: 209
+-- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.usuario (id, nombre, direccion) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3356 (class 0 OID 20249)
+-- Dependencies: 210
+-- Data for Name: vendedor; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.vendedor (idvendedor, nombre, direccion, numero_venta, tipo_producto) FROM stdin;
+1	Alejandro	carrera 212	4	1
+\.
+
+
+--
+-- TOC entry 3206 (class 2606 OID 20317)
+-- Name: bodega bodega_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bodega
+    ADD CONSTRAINT bodega_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3202 (class 2606 OID 20269)
+-- Name: cliente cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cliente
+    ADD CONSTRAINT cliente_pkey PRIMARY KEY (idcliente);
+
+
+--
+-- TOC entry 3210 (class 2606 OID 20295)
+-- Name: comercializacion comercializacion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comercializacion
+    ADD CONSTRAINT comercializacion_pkey PRIMARY KEY (numerofactura);
+
+
+--
+-- TOC entry 3208 (class 2606 OID 20315)
+-- Name: fabricacion fabricacion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.fabricacion
+    ADD CONSTRAINT fabricacion_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3204 (class 2606 OID 20274)
+-- Name: producto producto_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.producto
+    ADD CONSTRAINT producto_pkey PRIMARY KEY (idproductos);
+
+
+--
+-- TOC entry 3200 (class 2606 OID 20262)
+-- Name: proveedor proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.proveedor
+    ADD CONSTRAINT proveedor_pkey PRIMARY KEY (idproveedor);
+
+
+--
+-- TOC entry 3196 (class 2606 OID 20248)
+-- Name: usuario usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT usuario_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3198 (class 2606 OID 20255)
+-- Name: vendedor vendedor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.vendedor
+    ADD CONSTRAINT vendedor_pkey PRIMARY KEY (idvendedor);
+
+
+--
+-- TOC entry 3211 (class 2606 OID 20278)
+-- Name: bodega bodega_idproducto_bod_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bodega
+    ADD CONSTRAINT bodega_idproducto_bod_fkey FOREIGN KEY (idproducto_bod) REFERENCES public.producto(idproductos);
+
+
+--
+-- TOC entry 3214 (class 2606 OID 20301)
+-- Name: comercializacion comercializacion_idcliente_com_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comercializacion
+    ADD CONSTRAINT comercializacion_idcliente_com_fkey FOREIGN KEY (idcliente_com) REFERENCES public.cliente(idcliente);
+
+
+--
+-- TOC entry 3213 (class 2606 OID 20296)
+-- Name: comercializacion comercializacion_vendedor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comercializacion
+    ADD CONSTRAINT comercializacion_vendedor_fkey FOREIGN KEY (vendedor) REFERENCES public.vendedor(idvendedor);
+
+
+--
+-- TOC entry 3215 (class 2606 OID 20309)
+-- Name: empresaunivalle empresaunivalle_numerofactura_emp_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.empresaunivalle
+    ADD CONSTRAINT empresaunivalle_numerofactura_emp_fkey FOREIGN KEY (numerofactura_emp) REFERENCES public.comercializacion(numerofactura);
+
+
+--
+-- TOC entry 3212 (class 2606 OID 20286)
+-- Name: fabricacion fabricacion_idproducto_fab_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.fabricacion
+    ADD CONSTRAINT fabricacion_idproducto_fab_fkey FOREIGN KEY (idproducto_fab) REFERENCES public.producto(idproductos);
+
+
+-- Completed on 2022-03-23 01:55:13
+
+--
+-- PostgreSQL database dump complete
+--
+
